@@ -1,18 +1,18 @@
-<template>
-  <hello-world />
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-// Components
-import HelloWorld from '../components/HelloWorld.vue';
+import TopMenu from '@/components/TopMenu.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'HomeView',
 
   components: {
-    HelloWorld,
-  },
-});
+    TopMenu
+  }
+})
 </script>
+
+<template>
+  <v-app id="inspire" class="">
+    <top-menu />
+  </v-app>
+</template>
