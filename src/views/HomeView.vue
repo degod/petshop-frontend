@@ -14,7 +14,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-app id="inspire" class="">
+  <v-app>
     <top-menu />
 
     <v-main> </v-main>

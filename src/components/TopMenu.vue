@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar flat color="primary" class="py-2">
+  <v-app-bar flat scroll-behavior="inverted" color="primary" class="py-2">
     <v-container class="mx-auto d-flex align-center justify-center">
       <v-avatar class="me-0" color="" size="32">
         <img src="../assets/icons/logo.png" height="28" />
@@ -17,19 +17,21 @@
       <v-btn variant="outlined" prepend-icon="mdi-cart" class="ml-4 py-2" size="large" color="white"
         >Cart (0)</v-btn
       >
-      <v-btn variant="outlined" class="ml-4 py-2" size="large" color="white">Login</v-btn>
+
+      <login-modal />
     </v-container>
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import LoginModal from './LoginModal.vue'
 
 export default defineComponent({
   name: 'TopMenu',
 
-  data() {
-    return {}
+  components: {
+    LoginModal
   }
 })
 </script>
