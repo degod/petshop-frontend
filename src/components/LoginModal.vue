@@ -57,8 +57,10 @@
               </v-form>
 
               <div class="d-flex justify-space-between mt-7">
-                <a href="#" @click="isActive.value = false">Forgot password?</a>
-                <a href="#">Don't have an account? Sign up</a>
+                <router-link to="/recover" @click="isActive.value = false"
+                  >Forgot password?</router-link
+                >
+                <router-link to="#">Don't have an account? Sign up</router-link>
               </div>
             </center>
           </template>
@@ -90,5 +92,8 @@ a {
 .logo-title {
   color: #ffffff;
   font-size: 1rem;
+}
+.v-btn.text-white {
+  color: #ffffff !important;
 }
 </style>

@@ -4,7 +4,9 @@
       <v-avatar class="me-0" color="" size="32">
         <img src="../assets/icons/logo.png" height="28" />
       </v-avatar>
-      <v-app-bar-title class="m-0 custom-title">petson.</v-app-bar-title>
+      <router-link to="/" class="flex justify-center">
+        <v-app-bar-title class="m-0 custom-title">petson.</v-app-bar-title>
+      </router-link>
 
       <v-spacer></v-spacer>
       <v-btn class="ml-0 py-2" append-icon="mdi-menu-down" size="large" color="white"
@@ -40,5 +42,8 @@ export default defineComponent({
 .custom-title {
   color: #ffffff;
   font-size: 14px;
+}
+a {
+  text-decoration: none !important;
 }
 </style>

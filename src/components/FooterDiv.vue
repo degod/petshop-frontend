@@ -2,28 +2,28 @@
   <v-footer app color="secondary" height="240">
     <v-container>
       <div class="base-cont">
-        <v-row justify="center">
-          <v-col cols="12" sm="3" justify-center>
-            <v-container class="pa-0">
-              <v-row justify="center">
-                <v-col cols="12" sm="6">
+        <v-row>
+          <v-col cols="3.5">
+            <v-row>
+              <v-col cols="12" sm="6">
+                <center>
                   <v-avatar class="me-0" color="" size="60">
                     <img src="../assets/icons/logo-green.png" height="52" /> </v-avatar
                   ><br />
                   <span class="footer-title">petson.</span>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <ul>
-                    <li><b>Petson</b></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Store locator</a></li>
-                  </ul>
-                </v-col>
-              </v-row>
-            </v-container>
+                </center>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <ul>
+                  <li><b>Petson</b></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Store locator</a></li>
+                </ul>
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="3.5">
             <ul>
               <li><b>Contact</b></li>
               <li><a href="mailto:contact@petson">contact@petson</a></li>
@@ -31,7 +31,7 @@
               <li>35 Shnauzer avenue, Dogville AL</li>
             </ul>
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="2">
             <ul>
               <li><b>Information</b></li>
               <li><a href="#">Ordering and shipping</a></li>
@@ -39,7 +39,7 @@
               <li><a href="#">GDPR statement</a></li>
             </ul>
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="3">
             <p class="mt-4 text-grey-darken-1">
               If you can't find answer to your question, please contact our
               <a href="#">customer service</a>
@@ -70,7 +70,7 @@ export default defineComponent({
 }
 ul > li {
   list-style: none;
-  color: #00000061;
+  color: #0000008a;
 }
 ul > li > a {
   text-decoration: none;
@@ -81,11 +81,12 @@ ul > li > b {
 }
 a {
   text-decoration: none;
+  color: #1976d2;
 }
 .footer-title {
   color: #4ec690;
 }
 .base-cont {
-  padding: 0px 65px;
+  padding: 0px 25px;
 }
 </style>
