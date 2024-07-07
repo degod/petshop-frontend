@@ -60,7 +60,7 @@
                 <router-link to="/recover" @click="isActive.value = false"
                   >Forgot password?</router-link
                 >
-                <router-link to="#">Don't have an account? Sign up</router-link>
+                <register-modal></register-modal>
               </div>
             </center>
           </template>
@@ -72,13 +72,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import RegisterModal from './RegisterModal.vue'
 
 export default defineComponent({
   name: 'LoginModal',
+
+  components: {
+    RegisterModal
+  },
   data() {
-    return {
-      dialog: false
-    }
+    return {}
   }
 })
 </script>
