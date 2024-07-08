@@ -1,18 +1,3 @@
-<script lang="ts">
-import TopMenu from '../components/TopMenu.vue'
-import FooterDiv from '../components/FooterDiv.vue'
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'ChangePasswordView',
-
-  components: {
-    TopMenu,
-    FooterDiv
-  }
-})
-</script>
-
 <template>
   <v-app>
     <top-menu />
@@ -62,7 +47,11 @@ export default defineComponent({
                       </div>
 
                       <div class="mt-5">
-                        <v-btn class="text-white" block color="primary" @click="false"
+                        <v-btn
+                          class="text-white"
+                          block
+                          color="primary"
+                          @click="handleChangePassword"
                           >Change Password</v-btn
                         >
                       </div>
@@ -78,12 +67,49 @@ export default defineComponent({
       </v-container>
     </v-main>
 
+    <message-modal v-model:modelValue="showCustomSelector" :message="modalMessage"></message-modal>
     <footer-div />
   </v-app>
 </template>
 
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import TopMenu from '../components/TopMenu.vue'
+import FooterDiv from '../components/FooterDiv.vue'
+import MessageModal from '../components/MessageModal.vue'
+
+export default defineComponent({
+  name: 'ChangePasswordView',
+  components: {
+    TopMenu,
+    FooterDiv,
+    MessageModal
+  },
+  setup() {
+    const showCustomSelector = ref(false)
+    const modalMessage = ref('')
+
+    const toggleCustomSelection = () => {
+      showCustomSelector.value = !showCustomSelector.value
+    }
+
+    const handleChangePassword = () => {
+      modalMessage.value = 'Password changed successfully!'
+      toggleCustomSelection()
+    }
+
+    return {
+      showCustomSelector,
+      toggleCustomSelection,
+      handleChangePassword,
+      modalMessage
+    }
+  }
+})
+</script>
+
 <style scoped>
-.v-btn {
-  color: #ffffff !important;
+.v-btn.text-white {
+  color: var(--text-white) !important;
 }
 </style>
