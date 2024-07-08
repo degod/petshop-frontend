@@ -4,31 +4,7 @@
 
     <v-main>
       <v-container>
-        <v-row>
-          <v-col cols="1"></v-col>
-          <v-col cols="10">
-            <v-form class="mt-10">
-              <v-container width="80%">
-                <v-row>
-                  <v-col cols="2"></v-col>
-                  <v-col cols="8">
-                    <v-text-field
-                      prepend-inner-icon="mdi-magnify"
-                      label="Search products"
-                      type="text"
-                      color="primary"
-                      variant="outlined"
-                      clearable
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="2"></v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </v-col>
-          <v-col cols="1"></v-col>
-        </v-row>
+        <search-product></search-product>
 
         <div class="pa-10 pt-0">
           <div id="banner">
@@ -112,12 +88,14 @@ import TopMenu from '../components/TopMenu.vue'
 import FooterDiv from '../components/FooterDiv.vue'
 import { defineComponent } from 'vue'
 import router from '../router/index'
+import SearchProduct from '../components/SearchProduct.vue'
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     TopMenu,
-    FooterDiv
+    FooterDiv,
+    SearchProduct
   },
   setup() {
     const productsPage = () => {
