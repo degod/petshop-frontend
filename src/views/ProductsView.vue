@@ -34,17 +34,19 @@
       <v-container fluid class="px-15">
         <v-row>
           <v-col cols="2"></v-col>
-          <v-col cols="8">
+          <v-col cols="8" class="pl-15">
             <h1 class="section-header">Dry dog food</h1>
             <v-row>
               <v-col cols="9">
-                <v-breadcrumbs :items="['Foo', 'Bar', 'Fizz']"></v-breadcrumbs>
+                <v-breadcrumbs
+                  :items="['Homepage', 'Dogs', 'Dog food', 'Dry dog food']"
+                ></v-breadcrumbs>
               </v-col>
-              <v-col cols="3" class="dog-center-text">
+              <v-col cols="3">
                 <v-select
-                  label="Select"
+                  label="Sort by"
                   :items="['Lowest price first', 'Highest price first']"
-                  :value="'Lowest price first'"
+                  v-model="sortBy"
                 ></v-select>
               </v-col>
             </v-row>
@@ -52,19 +54,25 @@
           <v-col cols="2"></v-col>
         </v-row>
 
-        <div style="border: 1px solid red; margin: 0 50px">
+        <div style="margin: 0 50px">
           <v-row class="mx-20">
             <v-col cols="2">
               <v-expansion-panels>
-                <v-expansion-panel title="Price">
+                <v-expansion-panel title="PRICE">
                   <v-expansion-panel-text>
                     <v-slider v-model="slider1" thumb-label></v-slider>
                   </v-expansion-panel-text>
                 </v-expansion-panel>
 
-                <v-expansion-panel title="Brand">
+                <v-expansion-panel title="BRAND">
                   <v-expansion-panel-text>
-                    <span v-for="i in 6" :key="i">Product {{ i }}</span>
+                    <small v-for="i in 6" :key="i">Product {{ i }}<br /></small>
+                  </v-expansion-panel-text>
+                </v-expansion-panel>
+
+                <v-expansion-panel title="CATEGORY">
+                  <v-expansion-panel-text>
+                    <small v-for="i in 10" :key="i">Category {{ i }}<br /></small>
                   </v-expansion-panel-text>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -75,9 +83,9 @@
                   <v-col cols="4" v-for="m in 3" :key="m">
                     <v-card
                       flat
-                      class="ma-4"
-                      height="320"
-                      width="220"
+                      class="ma-1 pa-5"
+                      height="350"
+                      width="250"
                       @click="productDetailsPage()"
                     >
                       <div class="d-flex align-center justify-center">
@@ -126,6 +134,12 @@ export default defineComponent({
     return {
       productDetailsPage
     }
+  },
+  data() {
+    return {
+      slider1: 50,
+      sortBy: 'Lowest price first'
+    }
   }
 })
 </script>
@@ -133,7 +147,7 @@ export default defineComponent({
 <style scoped>
 .section-header {
   margin-left: 10px;
-  padding: 20px 63px 0 3px;
+  padding: 0px 63px 0 3px;
   color: #4ec690;
   font-weight: 300;
   font-size: 50px;
