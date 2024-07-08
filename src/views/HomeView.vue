@@ -40,7 +40,7 @@
         <h1 class="section-header">Dry dog food</h1>
         <v-slide-group class="pa-4 mb-10" center-active show-arrows>
           <v-slide-group-item v-for="n in 20" :key="n">
-            <v-card flat class="ma-4" height="320" width="220">
+            <v-card flat class="pa-4 mx-4" height="350" width="220" @click="productsPage()">
               <div class="d-flex align-center justify-center">
                 <v-scale-transition>
                   <img src="../assets/images/brit-care.png" />
@@ -72,7 +72,7 @@
         <h1 class="section-header">Pet treats and chew</h1>
         <v-slide-group class="pa-4 mb-10" center-active show-arrows>
           <v-slide-group-item v-for="n in 20" :key="n">
-            <v-card flat class="ma-4" height="320" width="220">
+            <v-card flat class="pa-4 mx-4" height="350" width="220" @click="productsPage()">
               <div class="d-flex align-center justify-center">
                 <v-scale-transition>
                   <img src="../assets/images/brit-care.png" />
@@ -111,13 +111,21 @@
 import TopMenu from '../components/TopMenu.vue'
 import FooterDiv from '../components/FooterDiv.vue'
 import { defineComponent } from 'vue'
+import router from '../router/index'
 
 export default defineComponent({
   name: 'HomeView',
-
   components: {
     TopMenu,
     FooterDiv
+  },
+  setup() {
+    const productsPage = () => {
+      router.push({ path: '/products' })
+    }
+    return {
+      productsPage
+    }
   }
 })
 </script>
