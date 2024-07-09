@@ -4,8 +4,11 @@
       <v-card width="400">
         <template v-slot:text>
           <center class="mt-4">
-            <h1>UPDATE</h1>
-
+            <v-alert
+              text="For demo purpose, we are using a URL token"
+              type="info"
+              variant="tonal"
+            ></v-alert>
             <div class="d-flex justify-space-between mt-7 px-7">
               <p>{{ message }}</p>
             </div>
@@ -40,7 +43,7 @@ export default defineComponent({
       emit('update:modelValue', false)
     }
 
-    const updateModelValue = (value: boolean) => {
+    const updateModelValue = (value: Boolean) => {
       emit('update:modelValue', value)
     }
 

@@ -40,15 +40,15 @@
                 <v-col cols="4">
                   <v-btn
                     prepend-icon="mdi-minus"
-                    class="btns"
+                    class="ms-auto mr-0 btns"
                     size="small"
                     flat
                     color="grey-lighten-2"
                   ></v-btn>
-                  <input type="text" class="qty" disabled />
+                  <input type="text" class="qty text-center" disabled value="1" />
                   <v-btn
                     prepend-icon="mdi-plus"
-                    class="btns"
+                    class="ms-auto ml-0 btns"
                     size="small"
                     flat
                     color="grey-lighten-2"
@@ -143,9 +143,6 @@ export default defineComponent({
 .qty {
   width: 40px;
   border: 1px solid grey;
-}
-.btns {
-  width: 35px !important;
 }
 .add-btn {
   color: white !important;

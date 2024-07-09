@@ -1,6 +1,6 @@
 <template>
   <div class="pa-4 text-center">
-    <v-dialog max-width="540">
+    <v-dialog v-model="isDialogActive" max-width="540">
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
           variant="outlined"
@@ -11,77 +11,106 @@
           >Login</v-btn
         >
       </template>
-      <template v-slot:default="{ isActive }">
-        <v-card class="pa-10">
-          <template v-slot:text>
-            <center>
-              <v-avatar class="me-0 pa-2" color="primary" size="92">
-                <div class="ma-2">
-                  <img src="../assets/icons/logo.png" height="42" /><br />
-                  <span class="logo-title">petson.</span>
-                </div>
-              </v-avatar>
-            </center>
-            <center class="mt-4">
-              <h2>Log In</h2>
-              <v-form class="mt-2">
-                <div>
-                  <div class="ma-0 me-0">
-                    <v-text-field
-                      label="Email"
-                      type="text"
-                      color="primary"
-                      variant="outlined"
-                      clearable
-                    >
-                    </v-text-field>
-                  </div>
-                  <div class="mt-3 me-0">
-                    <v-text-field
-                      label="Password"
-                      type="password"
-                      color="primary"
-                      variant="outlined"
-                      clearable
-                    >
-                    </v-text-field>
-                  </div>
-                  <div>
-                    <v-checkbox label="Remember me"></v-checkbox>
-                  </div>
-
-                  <v-btn class="text-white" block color="primary" @click="isActive.value = false"
-                    >Log In</v-btn
-                  >
-                </div>
-              </v-form>
-
-              <div class="d-flex justify-space-between mt-7">
-                <router-link to="/recover" @click="isActive.value = false"
-                  >Forgot password?</router-link
-                >
-                <register-modal></register-modal>
+      <v-card class="pa-10">
+        <center>
+          <v-avatar class="me-0 pa-2" color="primary" size="92">
+            <div class="ma-2">
+              <img src="../assets/icons/logo.png" height="42" /><br />
+              <span class="logo-title">petson.</span>
+            </div>
+          </v-avatar>
+        </center>
+        <center class="mt-4">
+          <h2>Log In</h2>
+          <v-form class="mt-2" @submit.prevent="submit">
+            <div>
+              <div class="ma-0 me-0">
+                <v-text-field
+                  label="Email"
+                  type="text"
+                  color="primary"
+                  variant="outlined"
+                  name="email"
+                  clearable
+                ></v-text-field>
               </div>
-            </center>
-          </template>
-        </v-card>
-      </template>
+              <div class="mt-3 me-0">
+                <v-text-field
+                  label="Password"
+                  type="password"
+                  color="primary"
+                  variant="outlined"
+                  name="password"
+                  clearable
+                ></v-text-field>
+              </div>
+              <div>
+                <v-checkbox label="Remember me"></v-checkbox>
+              </div>
+              <v-btn type="submit" class="text-white" block color="primary">Log In</v-btn>
+            </div>
+          </v-form>
+          <div class="d-flex justify-space-between mt-7">
+            <router-link to="/recover" @click="isDialogActive = false"
+              >Forgot password?</router-link
+            >
+            <register-modal></register-modal>
+          </div>
+        </center>
+      </v-card>
     </v-dialog>
   </div>
+  <toast-bar :snackbar="snackbar" :text="text" @update:snackbar="updateSnackbar" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import RegisterModal from './RegisterModal.vue'
+import ToastBar from '../components/ToastBar.vue'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'LoginModal',
-
   components: {
-    RegisterModal
+    RegisterModal,
+    ToastBar
   },
-  data() {
-    return {}
+  setup() {
+    const isDialogActive = ref(false)
+    const snackbar = ref(false)
+    const text = ref('')
+
+    const updateSnackbar = (togul: boolean, msg: string) => {
+      snackbar.value = togul
+      text.value = msg
+    }
+
+    const submit = async (e: Event) => {
+      const form = new FormData(e.target as HTMLFormElement)
+      const inputs = Object.fromEntries(form.entries())
+
+      try {
+        await axios.post('user/login', inputs)
+        // , {
+        //   withCredentials: true
+        // })
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+
+        isDialogActive.value = false
+        updateSnackbar(true, 'Login Successful')
+      } catch (error) {
+        updateSnackbar(true, 'Login failed: ' + error.message)
+        console.error('Login failed:', error)
+      }
+    }
+
+    return {
+      isDialogActive,
+      submit,
+      text,
+      snackbar,
+      updateSnackbar
+    }
   }
 })
 </script>

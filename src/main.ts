@@ -8,17 +8,13 @@ loadFonts()
 // Vuetify
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
 import vuetify from './plugins/vuetify'
 
 // Import custom styles
-import './assets/styles.css'
+import './assets/global.css'
+import './interceptors/axios'
 
 // Components
 import App from './App.vue'
 
-createApp(App)
-  .use(router)
-  .use(vuetify)
-  .use(createPinia())
-  .mount('#app')
+createApp(App).use(router).use(vuetify).use(createPinia()).mount('#app')

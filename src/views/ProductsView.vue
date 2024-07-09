@@ -79,6 +79,10 @@
             </v-col>
             <v-col cols="3"></v-col>
           </v-row>
+
+          <div class="text-center pt-8 pb-15">
+            <v-pagination v-model="page" :length="4" rounded="circle"></v-pagination>
+          </div>
         </div>
       </v-container>
     </v-main>
@@ -114,7 +118,8 @@ export default defineComponent({
   data() {
     return {
       slider1: 50,
-      sortBy: 'Lowest price first'
+      sortBy: 'Lowest price first',
+      page: 1
     }
   }
 })
