@@ -10,7 +10,7 @@
               variant="tonal"
             ></v-alert>
             <div class="d-flex justify-space-between mt-7 px-7">
-              <p class="text-wrap full">{{ message }}</p>
+              <p class="text-wrap full" v-html="message"></p>
             </div>
           </center>
         </template>

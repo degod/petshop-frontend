@@ -67,6 +67,7 @@ import MessageModal from '../components/MessageModal.vue'
 import ToastBar from '../components/ToastBar.vue'
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'RecoverView',
@@ -82,12 +83,13 @@ export default defineComponent({
     const modalMessage = ref('')
     const snackbar = ref(false)
     const toastMessage = ref('')
+    const router = useRouter()
 
     const submit = async () => {
       try {
         const response = await axios.post('user/forgot-password', { email: email.value })
         const resetToken = response.data.data.reset_token
-        modalMessage.value = `Reset token: ${resetToken}`
+        modalMessage.value = `Reset token: ${resetToken}. Click <a href="/change-password?email=${email.value}&token=${resetToken}">here</a> to change your password.`
         showCustomSelector.value = true
       } catch (error) {
         const errorMessage = error.response?.data?.message || 'An error occurred'
