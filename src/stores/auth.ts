@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -17,7 +18,8 @@ export const useAuthStore = defineStore('auth', {
     setUser(user: any) {
       this.user = user
     },
-    logout() {
+    async logout() {
+      await axios.get('user/logout')
       this.removeToken()
       this.setUser(null)
     }

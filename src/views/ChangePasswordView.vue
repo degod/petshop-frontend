@@ -109,7 +109,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.v-btn.text-white {
-  color: var(--text-white) !important;
+.text-white {
+  color: white !important;
 }
 </style>

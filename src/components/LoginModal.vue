@@ -87,15 +87,15 @@ export default defineComponent({
       text.value = msg
     }
 
-    const submit = async (e: Event) => {
-      const form = new FormData(e.target as HTMLFormElement)
-      const inputs = Object.fromEntries(form.entries())
+    const submit = async (event: Event) => {
+      const formData = new FormData(event.target as HTMLFormElement)
 
       try {
-        const { data } = await axios.post('user/login', inputs)
+        const response = await axios.post('user/login', formData)
 
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
-        authStore.setToken(data.data.token)
+        const token = response.data.data.token
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        authStore.setToken(token)
 
         isDialogActive.value = false
         updateSnackbar(true, 'Login Successful')

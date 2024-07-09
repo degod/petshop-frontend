@@ -16,7 +16,7 @@
             </center>
             <center class="mt-4">
               <h2>Sign Up</h2>
-              <v-form class="mt-5">
+              <v-form class="mt-5" @submit.prevent="submit">
                 <v-row>
                   <v-col col="6">
                     <div class="ma-0 me-0">
@@ -26,8 +26,8 @@
                         color="primary"
                         variant="outlined"
                         clearable
-                      >
-                      </v-text-field>
+                        name="first_name"
+                      />
                     </div>
                   </v-col>
                   <v-col col="6">
@@ -38,8 +38,8 @@
                         color="primary"
                         variant="outlined"
                         clearable
-                      >
-                      </v-text-field>
+                        name="last_name"
+                      />
                     </div>
                   </v-col>
                 </v-row>
@@ -50,8 +50,8 @@
                     color="primary"
                     variant="outlined"
                     clearable
-                  >
-                  </v-text-field>
+                    name="email"
+                  />
                 </div>
                 <div class="ma-0 me-0">
                   <v-text-field
@@ -60,8 +60,8 @@
                     color="primary"
                     variant="outlined"
                     clearable
-                  >
-                  </v-text-field>
+                    name="phone_number"
+                  />
                 </div>
                 <div class="ma-0 me-0">
                   <v-text-field
@@ -70,8 +70,8 @@
                     color="primary"
                     variant="outlined"
                     clearable
-                  >
-                  </v-text-field>
+                    name="address"
+                  />
                 </div>
                 <div class="mt-3 me-0">
                   <v-text-field
@@ -80,8 +80,8 @@
                     color="primary"
                     variant="outlined"
                     clearable
-                  >
-                  </v-text-field>
+                    name="password"
+                  />
                 </div>
                 <div class="mt-3 me-0">
                   <v-text-field
@@ -90,19 +90,20 @@
                     color="primary"
                     variant="outlined"
                     clearable
-                  >
-                  </v-text-field>
+                    name="password_confirmation"
+                  />
                 </div>
                 <div class="pa-2 text-left">
                   <v-checkbox
                     label="I want to receive inspiration, marketing promotions and updates via email."
+                    name="is_marketing"
                   ></v-checkbox>
                 </div>
 
-                <v-btn class="text-white" block color="primary" @click="dialog = false"
-                  >Sign up</v-btn
-                >
+                <v-btn type="submit" class="text-white" block color="primary">Sign up</v-btn>
               </v-form>
+
+              <toast-bar :snackbar="snackbar" :text="text" @update:snackbar="updateSnackbar" />
 
               <div class="d-flex justify-center mt-3">
                 <router-link to="/recover" @click="dialog = false"
@@ -118,13 +119,52 @@
 </template>
 
 <script lang="ts">
-export default {
-  data() {
+import { defineComponent, ref } from 'vue'
+import axios from 'axios'
+import { useAuthStore } from '../stores/auth'
+import ToastBar from '../components/ToastBar.vue'
+
+export default defineComponent({
+  name: 'RegisterModal',
+  components: {
+    ToastBar
+  },
+  setup() {
+    const authStore = useAuthStore()
+    const dialog = ref(false)
+    const snackbar = ref(false)
+    const text = ref('')
+
+    const updateSnackbar = (togul: boolean, msg: string) => {
+      snackbar.value = togul
+      text.value = msg
+    }
+
+    const submit = async (event: Event) => {
+      const formData = new FormData(event.target as HTMLFormElement)
+      try {
+        const response = await axios.post('user/create', formData)
+
+        const token = response.data.data.token
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        authStore.setToken(token)
+
+        dialog.value = false
+        updateSnackbar(true, 'Registration Successful')
+      } catch (error) {
+        updateSnackbar(true, 'Registration failed: ' + error.message)
+      }
+    }
+
     return {
-      dialog: false
+      dialog,
+      submit,
+      snackbar,
+      text,
+      updateSnackbar
     }
   }
-}
+})
 </script>
 
 <style scoped>
