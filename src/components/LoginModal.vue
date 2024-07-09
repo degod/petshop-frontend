@@ -68,6 +68,7 @@ import { defineComponent, ref } from 'vue'
 import RegisterModal from './RegisterModal.vue'
 import ToastBar from '../components/ToastBar.vue'
 import axios from 'axios'
+import { useAuthStore } from '../stores/auth'
 
 export default defineComponent({
   name: 'LoginModal',
@@ -76,6 +77,7 @@ export default defineComponent({
     ToastBar
   },
   setup() {
+    const authStore = useAuthStore()
     const isDialogActive = ref(false)
     const snackbar = ref(false)
     const text = ref('')
@@ -90,17 +92,15 @@ export default defineComponent({
       const inputs = Object.fromEntries(form.entries())
 
       try {
-        await axios.post('user/login', inputs)
-        // , {
-        //   withCredentials: true
-        // })
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+        const { data } = await axios.post('user/login', inputs)
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+        authStore.setToken(data.data.token)
 
         isDialogActive.value = false
         updateSnackbar(true, 'Login Successful')
       } catch (error) {
         updateSnackbar(true, 'Login failed: ' + error.message)
-        console.error('Login failed:', error)
       }
     }
 

@@ -20,20 +20,44 @@
         >Cart (0)</v-btn
       >
 
-      <login-modal />
+      <template v-if="!isAuthenticated">
+        <login-modal />
+      </template>
+      <template v-else>
+        <v-btn variant="outlined" class="ml-4 py-2" size="large" color="white" @click="logout"
+          >Logout</v-btn
+        >
+        <v-avatar class="me-0 ml-5" color="white" size="46">
+          <img src="../assets/images/avatar.png" height="45" />
+        </v-avatar>
+      </template>
     </v-container>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import LoginModal from './LoginModal.vue'
+import { useAuthStore } from '../stores/auth'
 
 export default defineComponent({
   name: 'TopMenu',
-
   components: {
     LoginModal
+  },
+  setup() {
+    const authStore = useAuthStore()
+
+    const isAuthenticated = computed(() => authStore.isAuthenticated)
+
+    const logout = () => {
+      authStore.logout()
+    }
+
+    return {
+      isAuthenticated,
+      logout
+    }
   }
 })
 </script>
