@@ -13,9 +13,12 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@vue/test-utils": "^2.4.6",
     "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
+    "start-server-and-test": "^2.0.4",
+    "vitest": "^2.0.1",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",
     "vuetify": "^3.6.11",
