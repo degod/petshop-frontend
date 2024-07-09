@@ -67,7 +67,7 @@
       </v-container>
     </v-main>
 
-    <message-modal v-model:modelValue="showCustomSelector" :message="modalMessage"></message-modal>
+    <message-modal :message="modalMessage"></message-modal>
     <footer-div />
   </v-app>
 </template>

@@ -10,7 +10,7 @@
               variant="tonal"
             ></v-alert>
             <div class="d-flex justify-space-between mt-7 px-7">
-              <p>{{ message }}</p>
+              <p class="text-wrap full">{{ message }}</p>
             </div>
           </center>
         </template>
@@ -55,4 +55,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-wrap {
+  width: 100%;
+}
+</style>
